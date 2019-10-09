@@ -1,4 +1,4 @@
-// Creating Min Heap 
+// Creating Min Heap
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -38,6 +38,7 @@ int main()
   int k;
   int val;
   int i;
+  int temp;
   scanf("%d", &T);
   while (T--) {
     scanf("%d%d", &n, &k);
@@ -45,14 +46,29 @@ int main()
     for (i = 1; i <= n; i++) {
       scanf("%d", &arr[i]);
     }
+
     i = n/2;
     while (i) {
       min_HeapifyTop(i--, n, arr);
     }
-    printf("\n");
+
     for (i = 1; i <= n; i++) {
       printf("%d  ", arr[i]);
     }
+
+    //K deletion
+    for (i = 0; i < k; i++) {
+        temp = arr[n-i];
+        arr[n-i] = arr[1];
+        arr[1] = temp;
+        min_HeapifyTop(1, n-i-1, arr);
+    }
+
+    printf("\n");
+    for (i = 1; i <= n-k; i++) {
+      printf("%d  ", arr[i]);
+    }
+    printf("\n");
   }
   return 0;
 }
