@@ -23,8 +23,8 @@ void min_HeapifyTop(int i, int n, int *arr)
         arr[2*i] = temp;
         min_HeapifyTop(2*i, n, arr);
       } else {
-        min_HeapifyTop(2*i, n, arr);
         arr[2*i+1] = temp;
+        min_HeapifyTop(2*i+1, n, arr);
       }
   }
 

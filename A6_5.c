@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void max_HeapifyTop(int i, int n, int *arr)
+void max_HeapifyTop(int i, int n, int *arr, int *count)
 {
   if (i > n || 2 * i > n) {
     return;
@@ -17,14 +17,15 @@ void max_HeapifyTop(int i, int n, int *arr)
     max = left < right ? right < arr[i] ? arr[i] : right : left < arr[i] ? arr[i] : left;
   }
   if (max != arr[i]) {
+      *count = *count + 1;
       temp = arr[i];
       arr[i] = max;
       if (max == left) {
         arr[2*i] = temp;
-        max_HeapifyTop(2*i, n, arr);
+        max_HeapifyTop(2*i, n, arr, count);
       } else {
         arr[2*i+1] = temp;
-        max_HeapifyTop(2*i+1, n, arr);
+        max_HeapifyTop(2*i+1, n, arr, count);
       }
   }
 
@@ -38,8 +39,10 @@ int main()
   int val;
   int i;
   int temp;
+  int count = 0;
   scanf("%d", &T);
   while (T--) {
+    count = 0;
     scanf("%d", &n);
     int arr[n+1];
     for (i = 1; i <= n; i++) {
@@ -48,25 +51,13 @@ int main()
 
     i = n/2;
     while (i) {
-      max_HeapifyTop(i--, n, arr);
+      max_HeapifyTop(i--, n, arr, &count);
     }
-
-    //THis is Heap
-    for (i = 1; i <= n; i++) {
-      printf("%d  ", arr[i]);
-    }
-
-    //n deletion for Heap Sort
-    for (i = 0; i < n; i++) {
-        temp = arr[n-i];
-        arr[n-i] = arr[1];
-        arr[1] = temp;
-        max_HeapifyTop(1, n-i-1, arr);
-    }
+    printf("%d\n", count);
 
     printf("\n");
     for (i = 1; i <= n; i++) {
-      printf("%d  ", arr[i]);
+      printf("%d ", arr[i]);
     }
   }
 
