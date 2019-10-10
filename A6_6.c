@@ -52,11 +52,10 @@ int main()
     while (i) {
       max_HeapifyTop(i--, n, arr, &count);
     }
-    printf("%d\n", count);
-
-    printf("\n");
-    for (i = 1; i <= n; i++) {
-      printf("%d ", arr[i]);
+    if (count == 0) {
+      printf("Yes\n");
+    } else {
+      printf("No\n");
     }
   }
 
